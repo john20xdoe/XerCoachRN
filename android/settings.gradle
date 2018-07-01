@@ -1,0 +1,3 @@
+rootProject.name = 'xercoachRN'
+
+include ':app'
