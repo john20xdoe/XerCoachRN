@@ -21,28 +21,16 @@ export default class AccountScreen extends React.Component<OwnProps, OwnState> {
   }
   public render() {
     let body = null;
-    if (this.state.selectedSwitch === 'AccountStats') {
-      body = <View>
-        <Text>AccountStats Here</Text>
-      </View>;
-    } else {
-      body = (
-        <View>
+    body = (
+      <View>
         <Text>Profile Here</Text>
       </View>);
-    }
+
     return (
       <View style={styles.container}>
-
         {body}
       </View>
     );
-  }
-
-  private onSwitchSelection(selection: string) {
-    this.setState({
-      selectedSwitch: selection
-    });
   }
 }
 

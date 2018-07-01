@@ -10,7 +10,6 @@ interface OwnProps {
 }
 
 interface OwnState {
-  selectedSwitch: string;
 }
 
 export default class ExercisesScreen extends React.Component<OwnProps, OwnState> {
@@ -19,31 +18,18 @@ export default class ExercisesScreen extends React.Component<OwnProps, OwnState>
       title: 'Exercises'
     };
   }
-  public readonly state = { selectedSwitch: 'Stats' };
   public render() {
     let body = null;
-    if (this.state.selectedSwitch === 'Stats') {
-      body = <View>
-        <Text>AccountStats Here</Text>
-      </View>;
-    } else {
-      body = (
-        <View>
-        <Text>Profile Here</Text>
+    body = (
+      <View>
+        <Text>Exercises Here</Text>
       </View>);
-    }
+
     return (
       <View style={styles.container}>
-
         {body}
       </View>
     );
-  }
-
-  private onSwitchSelection(selection: string) {
-    this.setState({
-      selectedSwitch: selection
-    });
   }
 }
 

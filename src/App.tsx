@@ -23,11 +23,7 @@ export default class App extends React.Component<any, OwnState> {
     isLoaded: false
   };
   public render() {
-    return (
-      <View style={styles.container}>
-        <Nav />
-      </View>
-    );
+    return <Nav />;
   }
 }
 
