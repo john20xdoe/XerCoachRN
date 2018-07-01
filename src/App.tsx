@@ -5,7 +5,8 @@ import {
   Text,
   View
 } from 'react-native';
-import Hello from './components/Hello';
+
+import Nav from './nav/_Nav';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -24,16 +25,7 @@ export default class App extends React.Component<any, OwnState> {
   public render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-        <Hello name='DUmass' enthusiasmLevel={20}></Hello>
+        <Nav />
       </View>
     );
   }
@@ -55,5 +47,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5
-  },
+  }
 });
