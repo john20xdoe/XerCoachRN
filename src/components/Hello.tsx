@@ -11,7 +11,7 @@ interface State {
   enthusiasmLevel: number;
 }
 
-export class Hello extends React.Component<Props, State> {
+class Hello extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -83,5 +83,7 @@ const styles = StyleSheet.create({
   greeting: {
     color: '#999',
     fontWeight: 'bold'
-  },
+  }
 });
+
+export default Hello;
