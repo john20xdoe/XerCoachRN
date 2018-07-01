@@ -1,4 +1,5 @@
 //
-import App from './src/App'
+import App from './src/App';
+import { AppRegistry } from 'react-native';
 
-export default App
+AppRegistry.registerComponent('xercoachRN', () => App);

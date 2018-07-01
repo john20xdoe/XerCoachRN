@@ -1,5 +1,4 @@
 import React from 'react';
-import { Component } from 'react';
 import {
   Platform,
   StyleSheet,
@@ -12,12 +11,17 @@ const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
     'Cmd+D or shake for dev menu',
   android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
+    'Shake or press menu button for dev menu'
 });
 
-interface OwnProps {}
-export default class App extends Component<OwnProps> {
-  render() {
+interface OwnState {
+  isLoaded: boolean;
+}
+export default class App extends React.Component<any, OwnState> {
+  public state = {
+    isLoaded: false
+  };
+  public render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
@@ -29,7 +33,7 @@ export default class App extends Component<OwnProps> {
         <Text style={styles.instructions}>
           {instructions}
         </Text>
-        <Hello name='DUmass'></Hello>
+        <Hello name='DUmass' enthusiasmLevel={20}></Hello>
       </View>
     );
   }
