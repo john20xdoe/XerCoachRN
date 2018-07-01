@@ -1,6 +1,5 @@
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
-
 import AccountNav from './AccountNav';
 import ExercisesNav from './ExercisesNav';
 import MainNav from './MainNav';
@@ -16,6 +15,10 @@ const RootStackNav = StackNavigator(
     Account: {
       screen: AccountNav
     }
+  },
+  {
+    mode: 'modal',
+    headerMode: 'none'
   }
 );
 
