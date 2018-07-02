@@ -22,7 +22,7 @@ export default class ExercisesScreen extends React.Component<OwnProps, OwnState>
     let body = null;
     body = (
       <View>
-        <Text>Exercises Here</Text>
+        <Text>Exercise Screen</Text>
       </View>);
 
     return (

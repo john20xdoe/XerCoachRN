@@ -2,6 +2,7 @@ import React from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TabBarBottom, TabNavigator } from 'react-navigation';
 import Colors from '../lib/Colors';
+import StartScreen from '../modules/Start/StartScreen';
 import AccountNav from './AccountNav';
 import ExercisesNav from './ExercisesNav';
 
@@ -14,6 +15,9 @@ const setIcon = (name: string, focused: boolean) => (
 
 export default TabNavigator(
   {
+    Start: {
+      screen: StartScreen
+    },
     Exercises: {
       screen: ExercisesNav
     },
@@ -32,6 +36,9 @@ export default TabNavigator(
         const { routeName } = navigation.state;
         let icon: any;
         switch (routeName) {
+          case 'Start':
+            icon = setIcon('play-pause', focused);
+            break;
           case 'Exercises':
             icon = setIcon('dumbbell', focused);
             break;
