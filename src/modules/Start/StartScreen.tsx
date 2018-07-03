@@ -5,6 +5,9 @@ import {
   View
 } from 'react-native';
 
+import Swiper from 'react-native-swiper';
+import Card from '../../components/Card';
+
 interface OwnProps {
   navigation: any;
 }
@@ -29,15 +32,25 @@ export default class StartScreen extends React.Component<OwnProps, OwnState> {
     };
   }
   public render() {
+    const exercises = ['Calf raise', 'Plank', 'Piriformis stretch'];
     const head = (
       <View style={styles.header}>
         <View>
-         <Text style={{fontSize: 20}}>Start</Text>
+          <Text style={{ fontSize: 20 }}>Start</Text>
+          <Text>Start Exercise</Text>
         </View>
       </View>);
     const body = (
       <View style={styles.body}>
-        <Text>Start Exercise</Text>
+        <Swiper showsButtons={true}>
+          {exercises.map((exercise, i) => {
+            const isStart = i === 0;
+            const isLast = i === (exercises.length - 1);
+            return (
+              <Card key={i} backColor='#9DEFEB' exercise={exercise} />
+            );
+          })}
+        </Swiper>
       </View>);
 
     return (
@@ -53,13 +66,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'rgb(248, 248, 248)',
+    flexDirection: 'column',
     ...StyleSheet.absoluteFillObject
+  },
+  logoContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   header: {
     height: 75,
     padding: 16
   },
   body: {
-    padding: 8
+    flex: 1
   }
 });
