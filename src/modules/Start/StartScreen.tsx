@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import {
   Alert,
@@ -5,18 +6,53 @@ import {
   Text,
   View
 } from 'react-native';
-
 import Swiper from 'react-native-swiper';
 import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { IconButton } from '../../components/Buttons';
 import Card from '../../components/Card';
+import Colors from '../../lib/Colors';
+import GlobalStyles from '../../lib/GlobalStyles';
+import { Exercise, SoundOption, UserExercise } from '../../lib/Typings';
 
 interface OwnProps {
   navigation: any;
 }
 
 interface OwnState {
+  userExercises: UserExercise[];
+  isExercising: boolean;
 }
+
+const exercises: Exercise[] = [
+  {
+    key: 'calf-raise',
+    title: 'Calf Raise',
+    soundOption: SoundOption.Voice,
+    prepare: {
+      seconds: 5,
+      backColor: '#efaaef'
+    },
+    duration: {
+      seconds: 10,
+      backColor: '#efffed'
+    },
+    break: {
+      seconds: 10,
+      backColor: '#efef23'
+    }
+  }
+];
+
+const userSets: UserExercise[] = [
+  {
+    exerciseKey: 'calf-raise',
+    username: 'la1255',
+    sequenceNumber: 1,
+    enabled: true,
+    reps: 5,
+    dateAdded: Date.now()
+  }
+];
 
 export default class StartScreen extends React.Component<OwnProps, OwnState> {
   public static navigationOptions = ({ navigation }: { navigation: any }) => {
@@ -24,31 +60,41 @@ export default class StartScreen extends React.Component<OwnProps, OwnState> {
       title: 'XerCoach'
     };
   }
+
+  public readonly state = {
+    isExercising: false,
+    userExercises: userSets
+  };
+
   public render() {
-    const exercises = ['Calf raise', 'Plank', 'Piriformis stretch'];
+    const { isExercising, userExercises } = this.state;
+    const currentExercises: any[] = _.map(userExercises,
+      (set: UserExercise) => _.find(exercises, ['key', set.exerciseKey]));
+
     const head = (
       <View style={styles.header}>
         <View style={styles.command}>
-          <Text style={{ fontSize: 20 }}>XerCoach</Text>
-          <Text>Start Exercise</Text>
+          <Text style={{ fontSize: 30 }}>XerCoach</Text>
         </View>
         <View style={styles.commandButtons}>
-          <IconButton style={{ width: 40 }}
-            iconChild={<Ionicons name='play-circle' size={40} />}
-            onPress={() => Alert.alert('Starting...')} />
+          <IconButton style={{ width: 40, elevation: 5 }}
+            iconChild=
+            {<Ionicons name={isExercising ? 'pause-circle' : 'play-circle'} size={40}
+              color={isExercising ? Colors.tabIconSelected : Colors.xerTextDarkGray} />}
+            onPress={() => this.onTogglePlayPlause(isExercising)} />
           <IconButton style={{ marginLeft: 4, width: 40 }}
             iconChild={<Ionicons name='refresh' size={40} />}
-            onPress={() => Alert.alert('Reset to beginning?')} />
+            onPress={() => this.onReset()} />
         </View>
       </View >);
     const body = (
       <View style={styles.body}>
-        <Swiper showsButtons={true}>
-          {exercises.map((exercise, i) => {
+        <Swiper showsButtons={currentExercises.length > 1}>
+          {currentExercises.map((exercise, i) => {
             const isStart = i === 0;
             const isLast = i === (exercises.length - 1);
             return (
-              <Card key={i} backColor='#9DEFEB' exercise={exercise} />
+              <Card key={i} backColor={exercise.duration.backColor} exercise={exercise} />
             );
           })}
         </Swiper>
@@ -61,12 +107,18 @@ export default class StartScreen extends React.Component<OwnProps, OwnState> {
       </View>
     );
   }
+
+  private onTogglePlayPlause = (isExercising: boolean) => {
+    this.setState({ isExercising: !isExercising });
+  }
+  private onReset = () => {
+    Alert.alert('Reset to beginning?');
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgb(248, 248, 248)',
     ...StyleSheet.absoluteFillObject
   },
   header: {
@@ -75,7 +127,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    ...GlobalStyles.elevationShadow
   },
   command: {
     // backgroundColor: 'green'

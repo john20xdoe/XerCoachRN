@@ -7,7 +7,7 @@ export enum SoundOption {
 export interface Exercise {
   key: string;
   title: string;
-  iconUrl: string;
+  // iconUrl?: string;
   duration: {
     seconds: number;
     backColor: string;
@@ -17,29 +17,28 @@ export interface Exercise {
     seconds: number;
     backColor: string;
     startSoundURL?: string;
-  },
+  };
   prepare: {
     seconds: number;
     backColor: string;
-  }
-  reps: {
-    count: number;
-    endSoundURL: string;
-  }
+  };
+  endSoundURL?: string;
   soundOption: SoundOption;
 }
 
-export interface UserExercises {
+export interface UserExercise {
   exerciseKey: string;
+  username: string;
   sequenceNumber: number;
   enabled: boolean;
+  reps: number;
   dateAdded: number;
 }
 
-export interface UserSet {
+export interface UserExerciseHistory {
+  username: string;
   exerciseKey: string;
   dateExercised: number;
-  username: string;
   expectedRep: number;
   actualRep: number;
 }

@@ -7,25 +7,23 @@ import { Exercise } from '../lib/Typings';
 import { ButtonProps } from './Buttons';
 
 interface CardProps {
-  exercise: string; // Exercise;
+  exercise: Exercise;
   backColor: string;
 }
 
 const Card: React.SFC<CardProps> = ({ backColor, exercise }) => (
   <View style={[styles.slide, {backgroundColor: backColor}]}>
-    <Text style={styles.text}>{exercise}</Text>
+    <Text style={styles.text}>{exercise.title}</Text>
   </View>
 );
 
 const styles = StyleSheet.create({
   slide: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center'
   },
   text: {
-    color: '#fff',
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: 'bold'
   }
 });
