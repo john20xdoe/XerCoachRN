@@ -4,7 +4,7 @@ import ExercisesScreen from '../modules/Exercises/ExercisesScreen';
 
 export default StackNavigator(
   {
-    ExercisesList: {
+    Exercises: {
       screen: ExercisesScreen,
       navigationOptions: {
         headerTitleStyle: { marginLeft: 'auto', marginRight: 'auto' }
@@ -18,6 +18,6 @@ export default StackNavigator(
     }
   },
   {
-    initialRouteName: 'ExercisesList'
+    initialRouteName: 'Exercises'
   }
 );
