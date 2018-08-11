@@ -8,12 +8,32 @@ import { ButtonProps } from './Buttons';
 
 interface CardProps {
   exercise: Exercise;
+  isExercising: boolean;
   backColor: string;
 }
 
-const Card: React.SFC<CardProps> = ({ backColor, exercise }) => (
-  <View style={[styles.slide, {backgroundColor: backColor}]}>
-    <Text style={styles.text}>{exercise.title}</Text>
+const Card: React.SFC<CardProps> = ({ isExercising, backColor, exercise }) => (
+  <View style={[styles.slide, { backgroundColor: backColor }]}>
+    <Text style={styles.title}>{exercise.title}</Text>
+
+    <View>
+      <Text style={styles.panelTitle}>
+        Prepare
+      </Text>
+
+    </View>
+    <View>
+      <Text style={styles.panelTitle}>
+        Exercise
+       </Text>
+
+    </View>
+    <View>
+      <Text style={styles.panelTitle}>
+        Break
+       </Text>
+
+    </View>
   </View>
 );
 
@@ -22,9 +42,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center'
   },
-  text: {
-    fontSize: 20,
+  title: {
+    fontSize: 40,
     fontWeight: 'bold'
+  },
+  panelTitle: {
+    elevation: 2,
+    borderRadius: 4
   }
 });
 

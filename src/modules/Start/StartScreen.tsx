@@ -24,6 +24,7 @@ interface OwnState {
   userExercises: UserExercise[];
   isExercising: boolean;
   soundOn: boolean;
+  currentUserSet: number;
 }
 
 export default class StartScreen extends React.Component<OwnProps, OwnState> {
@@ -41,7 +42,7 @@ export default class StartScreen extends React.Component<OwnProps, OwnState> {
   };
 
   public render() {
-    const { isExercising, userExercises, soundOn } = this.state;
+    const { isExercising, userExercises, soundOn, currentUserSet } = this.state;
     const currentExercises: any[] = _.map(userExercises,
       (set: UserExercise) => _.find(exercises, ['key', set.exerciseKey]));
 
@@ -60,7 +61,7 @@ export default class StartScreen extends React.Component<OwnProps, OwnState> {
     const body = (
       <View style={styles.body}>
         {/* TODO add computation of current time for Card */}
-        <Swiper showsButtons={currentExercises.length > 1}>
+        <Swiper showsButtons={currentExercises.length > 1} index={currentUserSet}>
           {currentExercises.map((exercise, i) => {
             const isStart = i === 0;
             const isLast = i === (exercises.length - 1);
@@ -104,6 +105,11 @@ export default class StartScreen extends React.Component<OwnProps, OwnState> {
   private onReset = () => {
     Alert.alert('Reset to beginning?');
   }
+  // private onEndSet = (state: OwnState) => {
+  //   this.setState({
+  //     currentUserSet: state.currentUserSet + 1
+  //   });
+  // }
 }
 
 const styles = StyleSheet.create({
@@ -140,6 +146,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red'
   },
   body: {
-    flex: 1
+    flex: 1,
+    paddingVertical: 20
   }
 });
