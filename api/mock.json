@@ -1,0 +1,39 @@
+{
+  "exercises": [
+    {
+      "key": "calf-raise",
+      "title": "Calf Raise",
+      "soundOption": 1,
+      "prepare": {
+        "seconds": 5,
+        "backColor": "#efaaef"
+      },
+      "duration": {
+        "seconds": 10,
+        "backColor": "#efffed"
+      },
+      "break": {
+        "seconds": 10,
+        "backColor": "#efef23"
+      }
+    }
+  ],
+  "userSets": [
+    {
+      "exerciseKey": "calf-raise",
+      "username": "la1255",
+      "sequenceNumber": 1,
+      "enabled": true,
+      "reps": 5,
+      "dateAdded": 1533994363911
+    },
+    {
+      "exerciseKey": "calf-raise",
+      "username": "la1255",
+      "sequenceNumber": 2,
+      "enabled": true,
+      "reps": 5,
+      "dateAdded": 1533994363911
+    }
+  ]
+}
