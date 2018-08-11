@@ -14,6 +14,8 @@ import Colors from '../../lib/Colors';
 import GlobalStyles from '../../lib/GlobalStyles';
 import { Exercise, SoundOption, UserExercise } from '../../lib/Typings';
 
+import { exercises, userSets } from '../../../api/mock.json';
+
 interface OwnProps {
   navigation: any;
 }
@@ -21,60 +23,56 @@ interface OwnProps {
 interface OwnState {
   userExercises: UserExercise[];
   isExercising: boolean;
+  soundOn: boolean;
 }
-
-const exercises: Exercise[] = [
-  {
-    key: 'calf-raise',
-    title: 'Calf Raise',
-    soundOption: SoundOption.Voice,
-    prepare: {
-      seconds: 5,
-      backColor: '#efaaef'
-    },
-    duration: {
-      seconds: 10,
-      backColor: '#efffed'
-    },
-    break: {
-      seconds: 10,
-      backColor: '#efef23'
-    }
-  }
-];
-
-const userSets: UserExercise[] = [
-  {
-    exerciseKey: 'calf-raise',
-    username: 'la1255',
-    sequenceNumber: 1,
-    enabled: true,
-    reps: 5,
-    dateAdded: Date.now()
-  }
-];
 
 export default class StartScreen extends React.Component<OwnProps, OwnState> {
   public static navigationOptions = ({ navigation }: { navigation: any }) => {
     return {
-      title: 'XerCoach'
+      title: 'XerCoac'
     };
   }
 
   public readonly state = {
     isExercising: false,
-    userExercises: userSets
+    userExercises: userSets,
+    currentUserSet: 0,
+    soundOn: true
   };
 
   public render() {
-    const { isExercising, userExercises } = this.state;
+    const { isExercising, userExercises, soundOn } = this.state;
     const currentExercises: any[] = _.map(userExercises,
       (set: UserExercise) => _.find(exercises, ['key', set.exerciseKey]));
 
     const head = (
       <View style={styles.header}>
         <View style={styles.command}>
-          <Text style={{ fontSize: 30 }}>XerCoach</Text>
+          <Text style={{ fontSize: 25 }}>XerCoach</Text>
+        </View>
+        <View style={styles.commandButtons}>
+          <IconButton style={{ width: 25, elevation: 5 }}
+            iconChild={<Ionicons name={soundOn ? 'bullhorn' : 'volume-off'} size={25}
+              color={Colors.xerTextDarkGray} />}
+            onPress={() => this.onToggleSound(soundOn)} />
+        </View>
+      </View >);
+    const body = (
+      <View style={styles.body}>
+        {/* TODO add computation of current time for Card */}
+        <Swiper showsButtons={currentExercises.length > 1}>
+          {currentExercises.map((exercise, i) => {
+            const isStart = i === 0;
+            const isLast = i === (exercises.length - 1);
+            return (
+              <Card key={i} backColor={exercise.duration.backColor} exercise={exercise} />
+            );
+          })}
+        </Swiper>
+      </View>);
+    const controls = (
+      <View style={styles.controls}>
+        <View style={styles.command}>
         </View>
         <View style={styles.commandButtons}>
           <IconButton style={{ width: 40, elevation: 5 }}
@@ -87,29 +85,21 @@ export default class StartScreen extends React.Component<OwnProps, OwnState> {
             onPress={() => this.onReset()} />
         </View>
       </View >);
-    const body = (
-      <View style={styles.body}>
-        <Swiper showsButtons={currentExercises.length > 1}>
-          {currentExercises.map((exercise, i) => {
-            const isStart = i === 0;
-            const isLast = i === (exercises.length - 1);
-            return (
-              <Card key={i} backColor={exercise.duration.backColor} exercise={exercise} />
-            );
-          })}
-        </Swiper>
-      </View>);
 
     return (
       <View style={styles.container}>
         {head}
         {body}
+        {controls}
       </View>
     );
   }
 
   private onTogglePlayPlause = (isExercising: boolean) => {
     this.setState({ isExercising: !isExercising });
+  }
+  private onToggleSound = (soundOn: boolean) => {
+    this.setState({ soundOn: !soundOn });
   }
   private onReset = () => {
     Alert.alert('Reset to beginning?');
@@ -122,7 +112,16 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject
   },
   header: {
-    height: 75,
+    height: 50,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    ...GlobalStyles.elevationShadow
+  },
+  controls: {
+    height: 50,
     paddingVertical: 8,
     paddingHorizontal: 16,
     flexDirection: 'row',
@@ -131,7 +130,9 @@ const styles = StyleSheet.create({
     ...GlobalStyles.elevationShadow
   },
   command: {
-    // backgroundColor: 'green'
+    flexDirection: 'row',
+    alignItems: 'center'
+
   },
   commandButtons: {
     flexDirection: 'row',
