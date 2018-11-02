@@ -59,4 +59,5 @@ buck-out/
 # Jest
 .jest/
 
+.expo
 .expo/
