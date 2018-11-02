@@ -1,9 +1,9 @@
 {
-  "name": "xercoachRN",
+  "name": "xercoach-rn",
   "displayName": "XerCoach",
   "description": "Your exercise coach",
   "expo": {
-    "name": "xercoachRN",
+    "name": "xercoach-rn",
     "slug": "XerCoach",
     "privacy": "unlisted",
     "sdkVersion": "29.0.0",

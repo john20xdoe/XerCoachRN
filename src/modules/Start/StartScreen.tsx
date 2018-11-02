@@ -1,13 +1,8 @@
-import _ from 'lodash';
-import React from 'react';
-import {
-  Alert,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-import Swiper from 'react-native-swiper';
-import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
+import _ from "lodash";
+import React from "react";
+import { Alert, StyleSheet, Text, View } from "react-native";
+import Swiper from "react-native-swiper";
+import Ionicons from "react-native-vector-icons/MaterialCommunityIcons";
 import { IconButton } from '../../components/Buttons';
 import Card from '../../components/Card';
 import Colors from '../../lib/Colors';
@@ -30,7 +25,7 @@ interface OwnState {
 export default class StartScreen extends React.Component<OwnProps, OwnState> {
   public static navigationOptions = ({ navigation }: { navigation: any }) => {
     return {
-      title: 'XerCoac'
+      title: 'XerCoach'
     };
   }
 
@@ -43,8 +38,9 @@ export default class StartScreen extends React.Component<OwnProps, OwnState> {
 
   public render() {
     const { isExercising, userExercises, soundOn, currentUserSet } = this.state;
-    const currentExercises: any[] = _.map(userExercises,
-      (set: UserExercise) => _.find(exercises, ['key', set.exerciseKey]));
+    const currentExercises: any[] = _.map(userExercises, (set: UserExercise) =>
+      _.find(exercises, ['key', set.exerciseKey])
+    );
 
     const head = (
       <View style={styles.header}>
@@ -52,40 +48,66 @@ export default class StartScreen extends React.Component<OwnProps, OwnState> {
           <Text style={{ fontSize: 25 }}>XerCoach</Text>
         </View>
         <View style={styles.commandButtons}>
-          <IconButton style={{ width: 25, elevation: 5 }}
-            iconChild={<Ionicons name={soundOn ? 'bullhorn' : 'volume-off'} size={25}
-              color={Colors.xerTextDarkGray} />}
-            onPress={() => this.onToggleSound(soundOn)} />
+          <IconButton
+            style={{ width: 25, elevation: 5 }}
+            iconChild={
+              <Ionicons
+                name={soundOn ? 'bullhorn' : 'volume-off'}
+                size={25}
+                color={Colors.xerTextDarkGray}
+              />
+            }
+            onPress={() => this.onToggleSound(soundOn)}
+          />
         </View>
-      </View >);
+      </View>
+    );
     const body = (
       <View style={styles.body}>
         {/* TODO add computation of current time for Card */}
-        <Swiper showsButtons={currentExercises.length > 1} index={currentUserSet}>
+        <Swiper
+          showsButtons={currentExercises.length > 1}
+          index={currentUserSet}
+        >
           {currentExercises.map((exercise, i) => {
             const isStart = i === 0;
-            const isLast = i === (exercises.length - 1);
+            const isLast = i === exercises.length - 1;
             return (
-              <Card key={i} backColor={exercise.duration.backColor} exercise={exercise} />
+              <Card
+                key={i}
+                backColor={exercise.duration.backColor}
+                exercise={exercise}
+              />
             );
           })}
         </Swiper>
-      </View>);
+      </View>
+    );
     const controls = (
       <View style={styles.controls}>
-        <View style={styles.command}>
-        </View>
+        <View style={styles.command} />
         <View style={styles.commandButtons}>
-          <IconButton style={{ width: 40, elevation: 5 }}
-            iconChild=
-            {<Ionicons name={isExercising ? 'pause-circle' : 'play-circle'} size={40}
-              color={isExercising ? Colors.tabIconSelected : Colors.xerTextDarkGray} />}
-            onPress={() => this.onTogglePlayPlause(isExercising)} />
-          <IconButton style={{ marginLeft: 4, width: 40 }}
+          <IconButton
+            style={{ width: 40, elevation: 5 }}
+            iconChild={
+              <Ionicons
+                name={isExercising ? 'pause-circle' : 'play-circle'}
+                size={40}
+                color={
+                  isExercising ? Colors.tabIconSelected : Colors.xerTextDarkGray
+                }
+              />
+            }
+            onPress={() => this.onTogglePlayPlause(isExercising)}
+          />
+          <IconButton
+            style={{ marginLeft: 4, width: 40 }}
             iconChild={<Ionicons name='refresh' size={40} />}
-            onPress={() => this.onReset()} />
+            onPress={() => this.onReset()}
+          />
         </View>
-      </View >);
+      </View>
+    );
 
     return (
       <View style={styles.container}>
@@ -138,7 +160,6 @@ const styles = StyleSheet.create({
   command: {
     flexDirection: 'row',
     alignItems: 'center'
-
   },
   commandButtons: {
     flexDirection: 'row',
