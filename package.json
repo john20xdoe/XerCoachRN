@@ -6,22 +6,34 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "bundle": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
     "test": "jest",
-    "android-bundle": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && react-native run-android"
+    "android-bundle": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && react-native run-android",
+    "preinstall": "rm -rf typings",
+    "postinstall": "npx typings install",
+    "expo": "expo start",
+    "android": "npx react-native run-android",
+    "ios": "npx react-native run-ios",
+    "prebuild": "rm -rf build",
+    "build": "tsc"
   },
   "dependencies": {
     "lodash": "^4.17.10",
     "react": "16.3.1",
-    "react-native": "0.55.4",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-29.0.0.tar.gz",
     "react-native-platform-touchable": "^1.1.1",
     "react-native-progress": "^3.5.0",
     "react-native-swiper": "^1.5.13",
     "react-native-vector-icons": "^4.6.0",
-    "react-navigation": "1.5.11"
+    "react-navigation": "1.5.11",
+    "exp": "^54.0.0",
+    "expo": "^29.0.0",
+    "expokit": "^1.5.0"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.110",
-    "@types/react": "^16.3.1",
-    "@types/react-native": "^0.55.4",
+    "@types/expo": "^27.0.0",
+    "@types/jest": "^23.3.2",
+    "@types/lodash": "^4.14.109",
+    "@types/react": "^16.3.13",
+    "@types/react-native": "^0.55.8",
     "@types/react-native-vector-icons": "^4.6.1",
     "@types/react-navigation": "^2.0.9",
     "@types/react-test-renderer": "^16.0.1",
@@ -32,7 +44,8 @@
     "react-native-typescript-transformer": "^1.2.10",
     "ts-jest": "^23.0.0",
     "tslint": "^5.10.0",
-    "typescript": "^2.9.2"
+    "typescript": "^2.9.2",
+    "typings": "^2.1.1"
   },
   "jest": {
     "preset": "react-native",
