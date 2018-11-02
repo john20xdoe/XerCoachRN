@@ -60,4 +60,5 @@ buck-out/
 .jest/
 
 .expo
-.expo/
+\.expo
+\.expo/*
